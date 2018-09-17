@@ -1,0 +1,11 @@
+
+
+.jokeContainerBox {
+  width: 900px;
+  margin: 0 auto;
+  min-height: calc( 100vh - 50px );
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
