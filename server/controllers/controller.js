@@ -52,7 +52,7 @@ let jokes = [];
 
 axios.get("https://raw.githubusercontent.com/15Dkatz/official_joke_api/master/jokes/index.json")
 .then(response => {
-  // console.log("response.data:", response.data); // dont need in server, shows in client
+  console.log("response.data:", response.data); // dont need in server, shows in client
   let newJokes = response.data.map(elem => {
     return Object.assign({}, elem, { "author": "David Katz etal." })
   });
@@ -126,7 +126,7 @@ function update(req, res) {
       type: type,
       setup: setup,
       punchline: punchline,
-      author: author || "x-man"
+      // author: author || "Unknown"
     };
   }
   res.status(200).json(jokes)

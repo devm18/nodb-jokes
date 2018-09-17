@@ -4,23 +4,31 @@ import './Jokes.css';
 
 function Jokes(props) {
   console.log( props.jokes )
-  let jokesDisplayed = props.jokes.map(joke => {
+  let jokesDisplayed = props.jokesArr.map(joke => {
     return (
-      <Joke 
-        id={ joke.id }
-        type={ joke.type }
-        setup={ joke.setup }
-        punchline={ joke.punchline }
-        author={ joke.author }
-        updatejokeFn={ this.updatejoke }
-        deleteJokeFn={ this.deletejoke } />
+      <Joke
+      id={ joke.id }
+      type={ joke.type }
+      setup={ joke.setup }
+      punchline={ joke.punchline }
+      author={ joke.author } 
+      />
     )
   })
+
   return (
-    <div className="jokesDisplayContainer">
+    <div className="jokesContainer">
       { jokesDisplayed }
     </div>
   );
 }
 
 export default Jokes; 
+
+/* 
+
+// properties to add to Joke component
+updatejokeFn={ this.updatejoke } 
+deleteJokeFn={ this.deletejoke } 
+
+*/

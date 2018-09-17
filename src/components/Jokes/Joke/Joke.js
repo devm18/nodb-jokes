@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import './Joke.css';
+// import Edit from './Edit/Edit';
 
-function Joke(props) {
-  // console.log( props.jokes )
-  return (
-    <div className="jokeContainerBox">
-      <span>
-      
-      </span>
-      <input />
+export default class Joke extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false,
+      showMenu: false
+    };
+  }
 
+  render() {
+    return (
+      <section className="jokeContainer">
+        <span className="jokeCard"> { this.props.joke.id } </span>
+        <span className="editMenu"> Menu </span>
 
-    </div>
-  )
-}  
+  
+      </section>
+    )
+  }
+}
 
-export default Joke; 
