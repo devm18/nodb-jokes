@@ -1,6 +1,6 @@
 
 .jokesContainer {
-  width: 1000px;
+  width: 900px;
   margin: 0 auto;
   /* min-height: calc( 100vh - 50px ); */
   box-sizing: border-box;
@@ -11,7 +11,7 @@
 }
 
 .jokeContainer {
-  /* width: 900px; */
+  width: 900px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 20px;

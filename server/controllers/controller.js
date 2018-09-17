@@ -83,7 +83,7 @@ function read(req, res) {
 }
 
 function create(req, res) {
-  console.log("req.body:", req.body)
+  // console.log("req.body:", req.body)
   let id = findMaxIdNum(jokes) + 1; 
   let { type, setup, punchline, author } = req.body;
   jokes.unshift({ id, type, setup, punchline, author: author || "unknown" }); 
@@ -97,20 +97,21 @@ function create(req, res) {
 // }
 
 function update(req, res) {
-  console.log('edit id: ', req.params.id); 
+  console.log('edit id: ', req.params.id);
+  console.log('req.body:', req.body);  
   let { type, setup, punchline, author } = req.body; 
   let updateID = Number(req.params.id);
-  console.log('jokes:', jokes, 'req.params', req.params, 'req.body', req.body);
+  // console.log('jokes:', jokes, 'req.params', req.params, 'req.body', req.body);
 
   let jokeIndex = jokes.findIndex(joke => {
-    console.log('joke.id:', joke.id, 'updateID:', updateID)
+    // console.log('joke.id:', joke.id, 'updateID:', updateID)
     return joke.id == updateID 
 
   });
   if(jokeIndex === -1) { 
     res.status(400).json(jokes);
+    // console.log("index not found");
     console.log("index not found");
-    return "index not found";
   } else {
     jokes[jokeIndex] = {
       id: updateID,
@@ -120,11 +121,12 @@ function update(req, res) {
       // author: author || "Unknown"
     };
   }
-  res.status(200).json(jokes)
+  res.status(200).json(jokes);
+  console.log('update:', jokes)
 }
 
 function remove(req, res) {
-  console.log('remove id: ', req.params.id); 
+  // console.log('remove id: ', req.params.id); 
   let removeID = Number(req.params.id); //alt: +req.params.id;
   let jokeIndex = jokes.findIndex(joke => joke.id === removeID); 
   if(jokeIndex !== -1) {

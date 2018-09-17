@@ -1,9 +1,10 @@
 import React from 'react';
 import Joke from './Joke';
 import './Jokes.css'; 
-
+import AddJoke from './AddJoke';
 
 const Jokes = (props) => {
+
   console.log( props.jokes )
   let jokesDisplayed = props.jokesArr.map(joke => {
     return (
@@ -23,9 +24,10 @@ const Jokes = (props) => {
       />
     )
   })
-
+  
   return (
     <div className="jokesContainer">
+    
       { jokesDisplayed }
     </div>
   );

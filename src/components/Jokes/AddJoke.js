@@ -7,17 +7,17 @@ const AddJoke = (props) => {
         <div>
           setup: 
           <textarea
-            value={props.setup}
             placeholder={props.setup} 
-            onChange={(e)=> props.handleChangeSetup(e)} >
+            onChange={(e)=> props.handleChangeSetupAdd(e)}
+            >
             { props.setup }
           </textarea>
           <br />
           punchline: 
           <textarea
             placeholder={props.punchline}
-            onChange={(e)=> props.handleChangePunchline(e)}
-            value={props.punchline} >
+            onChange={(e)=> props.handleChangePunchlineAdd(e)}
+             >
             { props.punchline }
           </textarea>
         </div>

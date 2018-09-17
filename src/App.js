@@ -15,10 +15,19 @@ class App extends Component {
       type: '',
       setup: '',
       punchline: '',
-      author: ''
+      author: '' 
     }
   }
 
+  componentDidMount() {
+    axios.get('/api/jokes')
+    .then(response => {
+      // console.log("componentDidMount: response.data:", response.data)
+      this.setState({ jokes: response.data })
+    })
+    .catch(err=> console.log("Error in App.componentDidMount(): ", err));
+  }
+  
   addJoke = (joke) => {
     axios.post("/api/jokes", joke).then(() => {
       axios.get("/api/jokes").then(response => {
@@ -26,6 +35,14 @@ class App extends Component {
         this.setState({ jokes: response.data });
       });
     });
+  };
+
+
+  handleChangeSetupAdd = (e) => { 
+    this.setState({ setup: e.target.value })
+  };
+  handleChangePunchlineAdd = (e) => { 
+    this.setState({ punchline: e.target.value });
   };
 
   handleChangeSetup = (e) => { 
@@ -38,38 +55,33 @@ class App extends Component {
   //   let keyName = e.target.name == 'setup' ? 'setup' : 'punchline';
   //   this.setState({ [ keyName ]: e.target.value })
   // };
-  
+
   updateJoke = (id) => {
     axios.put(`/api/jokes/${id}`, 
     { setup: this.state.setup, punchline: this.state.punchline })
-    .then(res => {
-      console.log('editJoke: ', res.data);
-      this.setState(
-        { setup: this.state.setup, punchline: this.state.punchline }
-      )
+    .then(response => {
+      // console.log('editJoke: ', response.data);
+      this.setState({ jokes: response.data } )
+    })
+    .then(() => {
+      axios.get('/api/jokes').then(response => {
+        //console.log("componentDidMount: response.data:", response.data)
+        this.setState({ jokes: response.data })
+      })
     })
   }
 
   deleteJoke = (id) => {
     axios.delete(`/api/jokes/${id}`)
     .then(res => {
-    console.log("deleteJoke: res.data:", res.data);
+    // console.log("deleteJoke: res.data:", res.data);
     this.setState({ jokes: res.data });
     });
   }
 
-  componentDidMount() {
-    axios.get('/api/jokes')
-    .then(response => {
-      console.log("componentDidMount: response.data:", response.data)
-      this.setState({ jokes: response.data })
-    })
-    .catch(err=> console.log("Error in App.componentDidMount(): ", err));
-  }
-  // <Jokes jokesArr={this.state.jokes} />
+  
   render() {
-    
-    // console.log("this.state.jokes:", this.state.jokes)
+    console.log('render:', this.state.jokes)
     return (
       <div className="App">
         <Header />
@@ -81,9 +93,10 @@ class App extends Component {
              setup={this.state.setup} 
              punchline={this.state.punchline} 
              author={this.state.author}
+             // 
              addJoke={this.addJoke}
-             handleChangeSetup={this.handleChangeSetup}
-             handleChangePunchline={this.handleChangePunchline}
+             handleChangeSetupAdd={this.handleChangeSetupAdd}
+             handleChangePunchlineAdd={this.handleChangePunchlineAdd}
              />
             
             <Jokes 

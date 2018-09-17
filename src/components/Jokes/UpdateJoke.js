@@ -4,13 +4,9 @@ import './Jokes.css';
 const UpdateJoke = (props) => {
   return (
     <div>      
-      <button 
-      onClick={ 
-        () => props.updateJoke(props.id) } 
-        // () => props.editMode({props.editMode: false})
-        > 
+      <button onClick={ () => props.updateJoke(props.id)} > 
         Update Joke 
-        </button> 
+        </button>
     </div>
   )
 }
