@@ -52,7 +52,7 @@ let jokes = [];
 
 axios.get("https://raw.githubusercontent.com/15Dkatz/official_joke_api/master/jokes/index.json")
 .then(response => {
-  console.log("response.data:", response.data); // dont need in server, shows in client
+  // console.log("response.data:", response.data); // dont need in server, shows in client
   let newJokes = response.data.map(elem => {
     return Object.assign({}, elem, { "author": "David Katz etal." })
   });
@@ -83,9 +83,10 @@ function read(req, res) {
 }
 
 function create(req, res) {
+  console.log("req.body:", req.body)
   let id = findMaxIdNum(jokes) + 1; 
   let { type, setup, punchline, author } = req.body;
-  jokes.push({ id, type, setup, punchline, author: author || "unknown" }); 
+  jokes.unshift({ id, type, setup, punchline, author: author || "unknown" }); 
   res.status(200).json(jokes)
 }
 // {
@@ -95,24 +96,14 @@ function create(req, res) {
 //   "author": "Jane Austen"
 // }
 
-function remove(req, res) {
-  let removeID = Number(req.params.id); //alt: +req.params.id;
-  // let jokeIndex = jokes.map(e => e.id).indexOf(removeID);//less efficient
-  let jokeIndex = jokes.findIndex(joke => joke.id === removeID); 
-
-  if(jokeIndex !== -1) {
-    jokes.splice(jokeIndex,1);
-  }
-  res.status(200).json(jokes)
-}  
-
 function update(req, res) {
+  console.log('edit id: ', req.params.id); 
   let { type, setup, punchline, author } = req.body; 
   let updateID = Number(req.params.id);
   console.log('jokes:', jokes, 'req.params', req.params, 'req.body', req.body);
 
   let jokeIndex = jokes.findIndex(joke => {
-    console.log('joke.id:', joke.id, 'updateID:', updateID )
+    console.log('joke.id:', joke.id, 'updateID:', updateID)
     return joke.id == updateID 
 
   });
@@ -132,6 +123,16 @@ function update(req, res) {
   res.status(200).json(jokes)
 }
 
+function remove(req, res) {
+  console.log('remove id: ', req.params.id); 
+  let removeID = Number(req.params.id); //alt: +req.params.id;
+  let jokeIndex = jokes.findIndex(joke => joke.id === removeID); 
+  if(jokeIndex !== -1) {
+    jokes.splice(jokeIndex,1);
+  }
+  res.status(200).json(jokes)
+}  
+
 // CRUD 
 // function filterByType() {} 
 // function filterByWords() {} ie function queryyWord() {} 
@@ -150,8 +151,8 @@ module.exports = {
   // getAllSixtyJokes,
   read,
   create,
-  remove,
-  update
+  update,
+  remove
 }
 
 

@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 
 app.get('/api/jokes', controller.read); 
 app.post('/api/jokes', controller.create);
-app.delete('/api/jokes/:id', controller.remove);
 app.put('/api/jokes/:id', controller.update);
+app.delete('/api/jokes/:id', controller.remove);
 
 app.listen(port,()=>console.log(`Server listening at ${port}`));
 
